@@ -1,0 +1,50 @@
+<%= form_for(@space_vehicle) do |f| %>
+  <% if @space_vehicle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@space_vehicle.errors.count, "error") %> prohibited this space_vehicle from being saved:</h2>
+
+      <ul>
+      <% @space_vehicle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :engine_power %>
+    <%= f.number_field :engine_power %>
+  </div>
+  <div class="field">
+    <%= f.label :fuel_type %>
+    <%= f.collection_select :fuel_type, SpaceVehicle::FUEL_TYPES, :to_s, :humanize %>
+    <%#= f.text_field :fuel_type %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :delivery_date %>
+    <%= f.date_select :delivery_date %>
+  </div>
+  <div class="field">
+    <%= f.label :vehicle_type %>
+    <%= f.collection_select :vehicle_type, SpaceVehicle::VEHICLE_TYPES, :to_s, :humanize %>
+    <%#= f.text_field :vehicle_type %>
+  </div>
+  <div class="field">
+    <%= f.label :can_carry %>
+    <%= f.number_field :can_carry %>
+  </div>
+  <div class="field">
+    <%#= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

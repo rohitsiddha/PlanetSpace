@@ -10,6 +10,7 @@ gem 'therubyracer'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'cancan'
+gem 'switch_user'
 
 group :development do
   gem 'rails_layout'

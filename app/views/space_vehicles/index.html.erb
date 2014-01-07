@@ -1,0 +1,50 @@
+<h1>Listing space_vehicles</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Engine power</th>
+    <th>Fuel type</th>
+    <th>Start date</th>
+    <th>Delivery date</th>
+    <th>Vehicle type</th>
+    <th>Can carry</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @space_vehicles.each do |space_vehicle| %>
+  <tr>
+    <td><%= space_vehicle.name %></td>
+    <td><%= space_vehicle.engine_power %></td>
+    <td><%= space_vehicle.fuel_type %></td>
+    <td><%= space_vehicle.start_date %></td>
+    <td><%= space_vehicle.delivery_date %></td>
+    <td><%= space_vehicle.vehicle_type %></td>
+    <td><%= space_vehicle.can_carry %></td>
+    <td><%= space_vehicle.user_id %></td>
+    <td><%= link_to "Share", "#", :space_vehicle_id => space_vehicle.id, :vehicle_name => space_vehicle.name %></td>
+    <td><%= link_to 'Show', space_vehicle %></td>
+    <td><%= link_to 'Edit', edit_space_vehicle_path(space_vehicle) %></td>
+    <% if space_vehicle.delivery_date < Date.today  %>
+        <td><%= link_to 'Destroy', space_vehicle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Space vehicle', new_space_vehicle_path %>
+
+<div id="invitation_form" title="Invite others to share" style="display:none">  
+  <% form_tag '/space_vehicle/share' do %>  
+    <label for="email_addresses">Enter recipient email address here</label><br />  
+    <%= text_field_tag 'email_addresses', "", :class => 'text ui-widget-content ui-corner-all'%>  
+    <br /><br />  
+    <%= hidden_field_tag "space_vehicle_id" %>  
+  <% end %>
+</div>  
