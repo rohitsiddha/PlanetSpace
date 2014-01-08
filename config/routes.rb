@@ -3,6 +3,8 @@ PlanetSpace::Application.routes.draw do
   resources :space_vehicles
 
 
+  get "users/new", :to => "users#new" 
+  post "users/create", :to=> "users#create" 
   devise_for :users
 
   # The priority is based upon order of creation:

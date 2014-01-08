@@ -11,8 +11,7 @@
 <% end %>
 <% if user_signed_in? %>
   <%# if current_user.has_role? :admin %>
-    <li><%= switch_user_select %>
-
-    	<%#= link_to 'Admin', users_path %></li>
+    <li><%= switch_user_select %></li>
+    <li><%= link_to 'Add User', 'users/new'  %></li>
   <%# end %>
 <% end %>
