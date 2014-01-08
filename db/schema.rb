@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140107204023) do
+ActiveRecord::Schema.define(:version => 20140107223600) do
+
+  create_table "shared_vehicles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "shared_email"
+    t.integer  "shared_user_id"
+    t.integer  "space_vehicle_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "shared_vehicles", ["shared_user_id"], :name => "index_shared_vehicles_on_shared_user_id"
+  add_index "shared_vehicles", ["space_vehicle_id"], :name => "index_shared_vehicles_on_space_vehicle_id"
+  add_index "shared_vehicles", ["user_id"], :name => "index_shared_vehicles_on_user_id"
 
   create_table "space_vehicles", :force => true do |t|
     t.string   "name"
@@ -39,7 +52,6 @@ ActiveRecord::Schema.define(:version => 20140107204023) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "role"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

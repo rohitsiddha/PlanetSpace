@@ -9,14 +9,21 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <main role="main">
+    <div id="main" role="main">
       <div class="container">
-        <%= render 'layouts/messages' %>
-        <%= yield %>
-      </div>
-    </main>
-    <footer>
-      <%= render 'layouts/navigation' %>
-    </footer>
+        <div class="content">
+           <div class="row">
+            <div class="col-md-12">
+              <%= render 'layouts/messages' %>
+              <%= yield %>
+            </div>
+          </div>
+          <footer>
+            <%= render 'layouts/navigation' %>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+    
   </body>
 </html>

@@ -37,9 +37,14 @@ main {
   //background-color: #eee;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 15px; // accommodate the navbar
+  //margin-top: 25px; // accommodate the navbar
   }
 section {
   @extend .row;
   margin-top: 20px;
   }
+body
+{
+    background: url(bg.png) ;
+    background-size: cover;
+}

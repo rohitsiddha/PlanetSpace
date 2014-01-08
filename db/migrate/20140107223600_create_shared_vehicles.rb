@@ -11,6 +11,6 @@ class CreateSharedVehicles < ActiveRecord::Migration
 
     add_index :shared_vehicles, :user_id  
     add_index :shared_vehicles, :shared_user_id  
-    add_index :shared_vehicles, :shared_vehicle_id  
+    add_index :shared_vehicles, :space_vehicle_id  
   end
 end
