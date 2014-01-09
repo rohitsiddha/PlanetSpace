@@ -73,6 +73,17 @@
     </div>
   <!-- </div>   -->
 
+  <% unless f.object.new_record? %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+        if(vehicle_type == "satellite"){
+          $('.carry_type').html("<strong>Kilograms</strong>");
+        }
+      });
+    </script>
+  <% end %>
+
 <% end %>
 
 <script type="text/javascript">
