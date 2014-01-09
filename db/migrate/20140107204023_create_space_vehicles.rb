@@ -16,7 +16,7 @@ class CreateSpaceVehicles < ActiveRecord::Migration
     case ActiveRecord::Base.connection.adapter_name.downcase.to_sym
     when :sqlite
       execute "INSERT INTO SQLITE_SEQUENCE (seq, name) VALUES(1000, 'space_vehicles') "
-    when :postgres
+    when :postgresql
       execute "SELECT setval('space_vehicles_id_seq', 1000)"
     when :mysql, :mysql2
       execute "ALTER TABLE space_vehicles AUTO_INCREMENT = 1000"
