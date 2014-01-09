@@ -1,0 +1,37 @@
+<% user_list = User.all 
+   user_list.delete(current_user)
+%>
+<div class="border-form-div">
+  <h2>Admin Panel</h2>
+  <br/>
+  <div class="well">
+    <center><strong>Change Admin</strong></center>
+    <br/><br/>
+    <%= form_tag '/users/change_admin', :method => :post, :class=>"form-horizontal" do %> 
+      <div class="form-group">
+        <label class="col-lg-3 control-label" for="email_addresses">Select user</label>
+        <div class="col-lg-8">   
+          <%= collection_select(:users, :id, user_list, :id, :email, {}, {:class => "form-control" } ) %>
+          <br/>
+          <%= submit_tag "Make admin", :class =>"btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="well">
+    <center><strong>Delete User</strong></center>
+    <br/><br/>
+    <%= form_tag '/users/delete_user', :method => :delete, :class=>"form-horizontal" do %> 
+      <div class="form-group">
+        <label class="col-lg-3 control-label" for="email_addresses">Select user</label>
+        <div class="col-lg-8">
+          <%= collection_select(:users, :id, user_list, :id, :email, {}, {:class => "form-control" } ) %>
+          <br/>
+          <%= submit_tag "Delete", :class =>"btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

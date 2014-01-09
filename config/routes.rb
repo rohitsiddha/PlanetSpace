@@ -4,9 +4,12 @@ PlanetSpace::Application.routes.draw do
   get "services/space_vehicle_details", :to => "services#space_vehicle_details" 
   get "services/space_vehicle_shared_with", :to => "services#space_vehicle_shared_with" 
 
-
+  get "users/admin", :to => "users#admin" 
   get "users/new", :to => "users#new" 
   post "users/create", :to=> "users#create" 
+  post "users/change_admin", :to => "users#change_admin" 
+  delete "users/delete_user", :to => "users#delete_user" 
+
   post "space_vehicles/share", :to=> "space_vehicles#share" 
 
   devise_for :users

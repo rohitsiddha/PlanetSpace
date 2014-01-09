@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
+  after_create :default_role
+
+  ROLES = %w[admin user]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
   # attr_accessible :title, :body
 
   has_many :space_vehicles, :dependent => :destroy
@@ -27,4 +30,14 @@ class User < ActiveRecord::Base
 
     return false
   end
+
+  private
+    def default_role
+      if User.count == 1
+        self.role = "admin"
+      else
+        self.role = "user"
+      end
+      self.save
+    end
 end

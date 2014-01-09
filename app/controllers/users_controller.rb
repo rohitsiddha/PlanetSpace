@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-
     # User.create!({:email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation] })
     respond_to do |format|
       if @user.save
@@ -26,6 +25,35 @@ class UsersController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def admin
+    authorize! :manage, current_user
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  def change_admin
+    authorize! :manage, current_user
+    user = User.find_by_id(params[:users][:id])
+    user.update_attributes(:role => "admin")
+    current_user.update_attributes(:role => "user")
+    respond_to do |format|
+      format.html { redirect_to space_vehicles_url, notice: 'Admin changed successfully.' }
+    end
+  end
+
+  def delete_user
+    authorize! :destroy, current_user
+    @user = User.find_by_id(params[:users][:id])
+
+    @user.destroy
+
+    respond_to do |format|
+      format.html { redirect_to "/users/admin", notice: 'User deleted successfully.' } 
+      format.json { head :no_content }
     end
   end
 
