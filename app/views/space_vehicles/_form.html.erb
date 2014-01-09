@@ -1,4 +1,4 @@
-<%= form_for(@space_vehicle) do |f| %>
+<%= form_for(@space_vehicle, :html=>{:class=>"form-horizontal"}) do |f| %>
   <% if @space_vehicle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@space_vehicle.errors.count, "error") %> prohibited this space_vehicle from being saved:</h2>
@@ -10,41 +10,120 @@
       </ul>
     </div>
   <% end %>
+  
+  <!-- <div class="col-lg-6"> -->
+    <div class="well">
+      
+      <div class="form-group">
+        <%= f.label :name, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.text_field :name, :class=> "form-control" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :engine_power %>
-    <%= f.number_field :engine_power %>
-  </div>
-  <div class="field">
-    <%= f.label :fuel_type %>
-    <%= f.collection_select :fuel_type, SpaceVehicle::FUEL_TYPES, :to_s, :humanize %>
-    <%#= f.text_field :fuel_type %>
-  </div>
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.date_select :start_date %>
-  </div>
-  <div class="field">
-    <%= f.label :delivery_date %>
-    <%= f.date_select :delivery_date %>
-  </div>
-  <div class="field">
-    <%= f.label :vehicle_type %>
-    <%= f.collection_select :vehicle_type, SpaceVehicle::VEHICLE_TYPES, :to_s, :humanize %>
-    <%#= f.text_field :vehicle_type %>
-  </div>
-  <div class="field">
-    <%= f.label :can_carry %>
-    <%= f.number_field :can_carry %>
-  </div>
-  <div class="field">
-    <%#= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <div class="form-group">
+        <%= f.label :engine_power, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.number_field :engine_power, :class=> "form-control", :maxlength => 2 %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :fuel_type, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.collection_select :fuel_type, SpaceVehicle::FUEL_TYPES, :to_s, :humanize, {}, {:class=> "form-control"}%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_date, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.date_select :start_date, {}, {:class=> "form-control"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :delivery_date, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.date_select :delivery_date, {}, {:class=> "form-control"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :vehicle_type, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-10">  
+          <%= f.collection_select :vehicle_type, SpaceVehicle::VEHICLE_TYPES, :to_s, :humanize, {}, {:class=> "form-control"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :can_carry, :class=>"col-lg-2 control-label" %>
+        <div class="col-lg-9">  
+          <%= f.number_field :can_carry, :class=> "form-control" %>
+        </div>
+        <div class="carry_type col-lg-1" style="padding:7px;"> <strong>People</strong> </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= f.submit :class => "btn btn-primary"  %>
+        </div>
+      </div>
+
+    </div>
+  <!-- </div>   -->
+
 <% end %>
+
+<script type="text/javascript">
+
+  $('form').submit(function(e){
+    var engine_power = $('#space_vehicle_engine_power').val();
+    var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+    $('.error').remove();
+    if(engine_power < 0 || engine_power > 90){
+      e.preventDefault();
+      var errorMessage = "Engine Power should be inbetweeen 0 to 90"
+      $('#space_vehicle_engine_power').after('<div class="error" >'+errorMessage+'</div>');
+    }
+
+    if(vehicle_type == "satellite"){
+      var can_carry = $('#space_vehicle_can_carry').val();
+      if(can_carry > (engine_power/2)){
+        e.preventDefault();
+        var errorMessage = "A satellite can only carry a number of kilograms equal to half its engine’s power rating."
+        $('#space_vehicle_can_carry').after('<div class="error" >'+errorMessage+'</div>');   
+      }
+    }
+  });
+
+  $(document).ready(function() {
+
+    $('#space_vehicle_vehicle_type').change(function(event) {
+        var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+
+        if(vehicle_type == "satellite"){
+          $('.carry_type').html("<strong>Kilograms</strong>");
+        }
+        else{
+          $('.carry_type').html("<strong>People</strong>"); 
+        }
+    });
+
+    // allow only numbers to enter in engine_power and can_carry field
+    $('#space_vehicle_engine_power, #space_vehicle_can_carry').keyup(function () {
+      if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+         this.value = this.value.replace(/[^0-9\.]/g, '');
+      }
+    });
+
+  });
+
+
+</script>
+
+<style type="text/css">
+  .error{
+    color: red;
+  }
+</style>

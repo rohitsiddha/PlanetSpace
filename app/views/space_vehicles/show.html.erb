@@ -1,45 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="well">
+  <p>
+    <b>Name:</b>
+    <%= @space_vehicle.name %>
+  </p>
 
-<p>
-  <b>Name:</b>
-  <%= @space_vehicle.name %>
-</p>
+  <p>
+    <b>Engine power:</b>
+    <%= @space_vehicle.engine_power %>
+  </p>
 
-<p>
-  <b>Engine power:</b>
-  <%= @space_vehicle.engine_power %>
-</p>
+  <p>
+    <b>Fuel type:</b>
+    <%= @space_vehicle.fuel_type %>
+  </p>
 
-<p>
-  <b>Fuel type:</b>
-  <%= @space_vehicle.fuel_type %>
-</p>
+  <p>
+    <b>Start date:</b>
+    <%= @space_vehicle.start_date %>
+  </p>
 
-<p>
-  <b>Start date:</b>
-  <%= @space_vehicle.start_date %>
-</p>
+  <p>
+    <b>Delivery date:</b>
+    <%= @space_vehicle.delivery_date %>
+  </p>
 
-<p>
-  <b>Delivery date:</b>
-  <%= @space_vehicle.delivery_date %>
-</p>
+  <p>
+    <b>Vehicle type:</b>
+    <%= @space_vehicle.vehicle_type %>
+  </p>
 
-<p>
-  <b>Vehicle type:</b>
-  <%= @space_vehicle.vehicle_type %>
-</p>
+  <p>
+    <b>Can carry:</b>
+    <%= @space_vehicle.can_carry %>
+  </p>
 
-<p>
-  <b>Can carry:</b>
-  <%= @space_vehicle.can_carry %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @space_vehicle.user_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_space_vehicle_path(@space_vehicle) %> |
-<%= link_to 'Back', space_vehicles_path %>
+  <!-- <p>
+    <b>User:</b>
+    <%= @space_vehicle.user_id %>
+  </p> -->
+</div>
+<%= link_to 'Edit', edit_space_vehicle_path(@space_vehicle), :class=> 'btn btn-default btn-sm' %> 
+<%= link_to 'Back', space_vehicles_path, :class=> 'btn btn-default btn-sm' %>

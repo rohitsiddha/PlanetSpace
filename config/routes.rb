@@ -1,10 +1,14 @@
 PlanetSpace::Application.routes.draw do
   root :to => 'space_vehicles#index'
   resources :space_vehicles
+  get "services/space_vehicle_details", :to => "services#space_vehicle_details" 
+  get "services/space_vehicle_shared_with", :to => "services#space_vehicle_shared_with" 
 
 
   get "users/new", :to => "users#new" 
   post "users/create", :to=> "users#create" 
+  post "space_vehicles/share", :to=> "space_vehicles#share" 
+
   devise_for :users
 
   # The priority is based upon order of creation:

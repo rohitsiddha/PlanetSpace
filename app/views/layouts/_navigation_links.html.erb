@@ -10,8 +10,6 @@
   <li><%= link_to 'Sign up', new_user_registration_path %></li>
 <% end %>
 <% if user_signed_in? %>
-  <%# if current_user.has_role? :admin %>
-    <li><%= switch_user_select %></li>
-    <li><%= link_to 'Add User', 'users/new'  %></li>
-  <%# end %>
+  <li><%= link_to 'Add User', 'users/new'  %></li>
+  <li> <%= collection_select("switch_user", "switch_user", User.all, :id, :email, {:prompt => "Switch User"}, {:onchange => "location.href = '/switch_user?scope_identifier=user_' + encodeURIComponent(this.options[this.selectedIndex].value) ", :class => "form-control", :style => "margin-top:10px; padding: 6px 6px; height:30px;" } ) %> </li>
 <% end %>

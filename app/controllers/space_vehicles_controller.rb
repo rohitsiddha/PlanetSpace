@@ -6,6 +6,8 @@ class SpaceVehiclesController < ApplicationController
     #@space_vehicles = SpaceVehicle.all
     @space_vehicles = current_user.space_vehicles
 
+    @being_shared_vehicles = current_user.shared_vehicles_by_others
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @space_vehicles }
@@ -17,7 +19,9 @@ class SpaceVehiclesController < ApplicationController
   def show
     #@space_vehicle = SpaceVehicle.find(params[:id])
     begin
-      @space_vehicle = current_user.space_vehicles.find(params[:id])
+      @space_vehicle = current_user.space_vehicles.find_by_id(params[:id])
+      vehicle = SpaceVehicle.find_by_id(params[:id])  
+      @space_vehicle ||= vehicle if current_user.has_share_access?(vehicle)  
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @space_vehicle }
@@ -45,7 +49,9 @@ class SpaceVehiclesController < ApplicationController
   # GET /space_vehicles/1/edit
   def edit
     #@space_vehicle = SpaceVehicle.find(params[:id])
-    @space_vehicle = current_user.space_vehicles.find(params[:id])
+    @space_vehicle = current_user.space_vehicles.find_by_id(params[:id])
+    vehicle = SpaceVehicle.find_by_id(params[:id])  
+    @space_vehicle ||= vehicle if current_user.has_share_access?(vehicle)  
   end
 
   # POST /space_vehicles
@@ -69,7 +75,9 @@ class SpaceVehiclesController < ApplicationController
   # PUT /space_vehicles/1.json
   def update
     #@space_vehicle = SpaceVehicle.find(params[:id])
-    @space_vehicle = current_user.space_vehicles.find(params[:id])
+    @space_vehicle = current_user.space_vehicles.find_by_id(params[:id])
+    vehicle = SpaceVehicle.find_by_id(params[:id])  
+    @space_vehicle ||= vehicle if current_user.has_share_access?(vehicle)  
 
     respond_to do |format|
       if @space_vehicle.update_attributes(params[:space_vehicle])
@@ -86,7 +94,10 @@ class SpaceVehiclesController < ApplicationController
   # DELETE /space_vehicles/1.json
   def destroy
     #@space_vehicle = SpaceVehicle.find(params[:id])
-    @space_vehicle = current_user.space_vehicles.find(params[:id])
+    @space_vehicle = current_user.space_vehicles.find_by_id(params[:id])
+    vehicle = SpaceVehicle.find_by_id(params[:id])  
+    @space_vehicle ||= vehicle if current_user.has_share_access?(vehicle)  
+
     @space_vehicle.destroy
 
     respond_to do |format|
@@ -94,4 +105,32 @@ class SpaceVehiclesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def share
+    puts params
+    #separate the email with the comma
+    #email_addresses = params[:email_addresses].split(",")
+    #email_addresses.each do |email|
+
+      @shared_vehicle = current_user.shared_vehicles.new
+      @shared_vehicle.space_vehicle_id = params["space_vehicles"]["name"]
+
+      #get shared user_id 
+      shared_user = User.find_by_id(params["users"]["id"])
+
+      @shared_vehicle.shared_email = shared_user.email
+      @shared_vehicle.shared_user_id = shared_user.id
+      
+      @shared_vehicle.save
+      
+    #end  
+
+    respond_to do |format|  
+      format.html { redirect_to space_vehicles_url, notice: 'Space vehicle was successfully shared.' }
+      format.js {  
+      }  
+    end 
+
+  end
+
 end

@@ -1,6 +1,8 @@
-<h1>Editing space_vehicle</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @space_vehicle %> |
-<%= link_to 'Back', space_vehicles_path %>
+<div class="well">
+  <h3>Editing Space Vehicle</h3>
+  
+  <%= render 'form' %>
+  
+  <%= link_to 'Show', @space_vehicle, :class=> 'btn btn-default btn-sm' %> 
+  <%= link_to 'Back', space_vehicles_path, :class=> 'btn btn-default btn-sm' %>
+</div>
