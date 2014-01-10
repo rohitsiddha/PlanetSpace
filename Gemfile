@@ -10,6 +10,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'cancan'
 gem 'switch_user'
+gem 'bootstrap-datepicker-rails'
 
 group :development do
   gem 'sqlite3'

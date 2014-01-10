@@ -1,0 +1,104 @@
+<script type="text/javascript">
+  // check for errors and validations
+  $('form').submit(function(e){
+    var vehicle_name = $('#space_vehicle_name').val();
+    var engine_power = $('#space_vehicle_engine_power').val();
+    var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+    var start_date = new Date($('#space_vehicle_start_date').val());
+    var delivery_date = new Date($('#space_vehicle_delivery_date').val());
+    var can_carry = $('#space_vehicle_can_carry').val();
+
+    $('.error').remove();
+
+    if(vehicle_name == ""){
+      e.preventDefault();
+      var errorMessage = "Name can't be blank";
+      display_error("space_vehicle_name", errorMessage);
+    }
+
+    if(engine_power == ""){
+      e.preventDefault();
+      var errorMessage = "Engine Power can't be blank";
+      display_error("space_vehicle_engine_power", errorMessage);
+    }
+
+    if(can_carry == ""){
+      e.preventDefault();
+      var errorMessage = "Can Carry can't be blank";
+      display_error("space_vehicle_can_carry", errorMessage);
+    }
+    else if(isNaN(can_carry / 1) == false){
+      e.preventDefault();
+      var errorMessage = "Value must be numeric and positive";
+      display_error("space_vehicle_can_carry", errorMessage);
+    }
+
+
+    if(start_date == "Invalid Date"){
+      e.preventDefault();
+      var errorMessage = "Invalid Date";
+      display_error("space_vehicle_start_date", errorMessage);
+    }
+
+    if(delivery_date == "Invalid Date"){
+      e.preventDefault();
+      var errorMessage = "Invalid Date";
+      display_error("space_vehicle_delivery_date", errorMessage);
+    }
+
+    if(engine_power < 0 || engine_power > 90){
+      e.preventDefault();
+      var errorMessage = "Engine Power should be inbetweeen 0 to 90";
+      display_error("space_vehicle_engine_power", errorMessage); 
+    }
+
+    if(vehicle_type == "satellite"){
+      if(can_carry > (engine_power/2)){
+        e.preventDefault();
+        var errorMessage = "A satellite can only carry a number of kilograms equal to half its engine’s power rating.";
+        display_error("space_vehicle_can_carry", errorMessage); 
+      }
+    }
+
+    if(start_date > delivery_date){
+      e.preventDefault();
+      var errorMessage = "Delivery date should be greater than Start date";
+      display_error("space_vehicle_delivery_date", errorMessage); 
+    }
+
+  });
+
+  // function of append error message to element
+  function display_error(element_id, errorMessage){
+    $('#'+element_id).after('<div class="error" >'+errorMessage+'</div>');
+  }
+
+  $(document).ready(function() {
+    $('#space_vehicle_vehicle_type').change(function(event) {
+        var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+
+        if(vehicle_type == "satellite"){
+          $('.carry_type').html("<strong>Kilograms</strong>");
+        }
+        else{
+          $('.carry_type').html("<strong>People</strong>"); 
+        }
+    });
+
+    // allow only numbers to enter in engine_power and can_carry field
+    $('#space_vehicle_engine_power, #space_vehicle_can_carry').keyup(function () {
+      if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+         this.value = this.value.replace(/[^0-9\.]/g, '');
+      }
+    });
+
+
+    $('[data-behaviour~=datepicker]').datepicker({
+      todayHighlight: true
+    });
+
+
+  });
+
+
+</script>

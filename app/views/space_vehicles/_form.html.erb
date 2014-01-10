@@ -1,3 +1,9 @@
+<style type="text/css">
+  .error{
+    color: red;
+  }
+</style>
+
 <%= form_for(@space_vehicle, :html=>{:class=>"form-horizontal"}) do |f| %>
   <% if @space_vehicle.errors.any? %>
     <div id="error_explanation">
@@ -38,14 +44,15 @@
       <div class="form-group">
         <%= f.label :start_date, :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
-          <%= f.date_select :start_date, {}, {:class=> "form-control"} %>
+          <%= f.text_field :start_date, {:class=> "start_date form-control", :'data-behaviour'=>'datepicker'} %>
+          
         </div>
       </div>
-
+      
       <div class="form-group">
         <%= f.label :delivery_date, :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
-          <%= f.date_select :delivery_date, {}, {:class=> "form-control"} %>
+          <%= f.text_field :delivery_date, {:class=> "form-control", :'data-behaviour'=>'datepicker'} %>
         </div>
       </div>
 
@@ -86,55 +93,4 @@
 
 <% end %>
 
-<script type="text/javascript">
-
-  $('form').submit(function(e){
-    var engine_power = $('#space_vehicle_engine_power').val();
-    var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
-    $('.error').remove();
-    if(engine_power < 0 || engine_power > 90){
-      e.preventDefault();
-      var errorMessage = "Engine Power should be inbetweeen 0 to 90"
-      $('#space_vehicle_engine_power').after('<div class="error" >'+errorMessage+'</div>');
-    }
-
-    if(vehicle_type == "satellite"){
-      var can_carry = $('#space_vehicle_can_carry').val();
-      if(can_carry > (engine_power/2)){
-        e.preventDefault();
-        var errorMessage = "A satellite can only carry a number of kilograms equal to half its engine’s power rating."
-        $('#space_vehicle_can_carry').after('<div class="error" >'+errorMessage+'</div>');   
-      }
-    }
-  });
-
-  $(document).ready(function() {
-
-    $('#space_vehicle_vehicle_type').change(function(event) {
-        var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
-
-        if(vehicle_type == "satellite"){
-          $('.carry_type').html("<strong>Kilograms</strong>");
-        }
-        else{
-          $('.carry_type').html("<strong>People</strong>"); 
-        }
-    });
-
-    // allow only numbers to enter in engine_power and can_carry field
-    $('#space_vehicle_engine_power, #space_vehicle_can_carry').keyup(function () {
-      if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
-         this.value = this.value.replace(/[^0-9\.]/g, '');
-      }
-    });
-
-  });
-
-
-</script>
-
-<style type="text/css">
-  .error{
-    color: red;
-  }
-</style>
+<%= render 'space_vehicles.js.erb' %>
