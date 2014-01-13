@@ -21,28 +21,28 @@
     <div class="well">
       
       <div class="form-group">
-        <%= f.label :name, :class=>"col-lg-2 control-label" %>
+        <%= f.label :name, "Name*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.text_field :name, :class=> "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :engine_power, :class=>"col-lg-2 control-label" %>
+        <%= f.label :engine_power, "Engine power*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.number_field :engine_power, :class=> "form-control", :maxlength => 2 %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :fuel_type, :class=>"col-lg-2 control-label" %>
+        <%= f.label :fuel_type, "Fuel type*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.collection_select :fuel_type, SpaceVehicle::FUEL_TYPES, :to_s, :humanize, {}, {:class=> "form-control"}%>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :start_date, :class=>"col-lg-2 control-label" %>
+        <%= f.label :start_date,"Start date*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.text_field :start_date, {:class=> "start_date form-control", :'data-behaviour'=>'datepicker'} %>
           
@@ -50,21 +50,21 @@
       </div>
       
       <div class="form-group">
-        <%= f.label :delivery_date, :class=>"col-lg-2 control-label" %>
+        <%= f.label :delivery_date,"Delivery date*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.text_field :delivery_date, {:class=> "form-control", :'data-behaviour'=>'datepicker'} %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :vehicle_type, :class=>"col-lg-2 control-label" %>
+        <%= f.label :vehicle_type,"Vehicle type*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
           <%= f.collection_select :vehicle_type, SpaceVehicle::VEHICLE_TYPES, :to_s, :humanize, {}, {:class=> "form-control"} %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :can_carry, :class=>"col-lg-2 control-label" %>
+        <%= f.label :can_carry,"Can carry*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-9">  
           <%= f.number_field :can_carry, :class=> "form-control" %>
         </div>
