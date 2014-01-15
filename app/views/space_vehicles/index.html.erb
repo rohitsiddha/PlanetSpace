@@ -12,7 +12,8 @@
         <th>Can carry</th>
         <!-- <th>User</th> -->
         <th></th>
-        <!-- <th></th> -->
+        <th></th>
+        <th></th>
         <th></th>
       </tr>
 
@@ -26,7 +27,8 @@
         <td><%= space_vehicle.vehicle_type %></td>
         <td><%= space_vehicle.can_carry %></td>
         <!-- <td><%= space_vehicle.user_id %></td> -->
-        <!-- <td><%#= link_to 'Show', space_vehicle, :class => 'btn btn-primary btn-xs' %></td> -->
+        <td><%= link_to 'Details', "/services/space_vehicle_details.json?id=#{space_vehicle.id}", :class => 'btn btn-success btn-xs' %></td> 
+        <td><%= link_to 'Shared With', "/services/space_vehicle_shared_with.json?id=#{space_vehicle.id}", :class => 'btn btn-success btn-xs' %></td> 
         <td><%= link_to 'Edit', edit_space_vehicle_path(space_vehicle), :class => 'btn btn-primary btn-xs' %></td>
         <% if space_vehicle.delivery_date < Date.today  %>
           <td><%= link_to 'Destroy', space_vehicle, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>

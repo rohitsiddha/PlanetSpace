@@ -1,3 +1,9 @@
+<style type="text/css">
+  .error{
+    color: red;
+    margin-top: -12px;
+  }
+</style>
 <div class="border-form-div">
   <h2>Create New User</h2>
 
@@ -15,5 +21,9 @@
     <button class="btn-info btn btn-inverse" type="submit">Create User</button>
   <% end %>
   <br/>
+  <%= link_to 'Back', space_vehicles_path, :class=> 'btn btn-default btn-sm', :confirm => "Are you sure?" %>
+  <%= link_to "Reset", "#", :class=>'reset-btn btn btn-default btn-sm'%>
   <%#= render "devise/shared/links" %>
 </div>
+
+<%= render 'devise/shared/validate_user.js.erb' %>

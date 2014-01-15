@@ -15,3 +15,19 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
+
+
+// function of append error message to element
+function display_error(element_id, errorMessage){
+  $('#'+element_id).after('<div class="error error-'+element_id+'" >'+errorMessage+'</div>');
+}
+
+// function of get value of element_id
+function get_value(element){
+  return $('#'+element).val();
+}
+
+// function to remove error message div of specific element
+function clear_errors(element_id){
+  $('.error.error-'+element_id).hide();
+}

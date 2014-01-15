@@ -30,7 +30,7 @@
       <div class="form-group">
         <%= f.label :engine_power, "Engine power*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
-          <%= f.number_field :engine_power, :class=> "form-control", :maxlength => 2 %>
+          <%= f.number_field :engine_power, :class=> "form-control", :maxlength => 2, :min => 0 %>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
       <div class="form-group">
         <%= f.label :delivery_date,"Delivery date*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-10">  
-          <%= f.text_field :delivery_date, {:class=> "form-control", :'data-behaviour'=>'datepicker'} %>
+          <%= f.text_field :delivery_date, {:class=> "form-control", :'data-behaviour'=>'datepicker', :disabled => true} %>
         </div>
       </div>
 
@@ -66,7 +66,7 @@
       <div class="form-group">
         <%= f.label :can_carry,"Can carry*", :class=>"col-lg-2 control-label" %>
         <div class="col-lg-9">  
-          <%= f.number_field :can_carry, :class=> "form-control" %>
+          <%= f.number_field :can_carry, :class=> "form-control", :min => 0 %>
         </div>
         <div class="carry_type col-lg-1" style="padding:7px;"> <strong>People</strong> </div>
       </div>
@@ -83,6 +83,16 @@
   <% unless f.object.new_record? %>
     <script type="text/javascript">
       $(document).ready(function() {
+        $('#space_vehicle_delivery_date').attr('disabled', false);
+        start_date = new Date(get_value('space_vehicle_start_date'));
+        if(start_date != "Invalid Date"){
+          $('#space_vehicle_delivery_date').datepicker({
+            startDate: start_date,
+            todayHighlight: true,
+            format: 'yyyy-mm-dd'
+          });
+          $('#space_vehicle_delivery_date').attr('disabled', false);
+        }
         var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
         if(vehicle_type == "satellite"){
           $('.carry_type').html("<strong>Kilograms</strong>");

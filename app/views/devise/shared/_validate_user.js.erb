@@ -1,32 +1,7 @@
-<style type="text/css">
-  .error{
-    color: red;
-    margin-top: -12px;
-  }
-</style>
-<div class="border-form-div">
-<h2>Sign in</h2>
-
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-  <br/>
-  <button class="btn-info btn btn-inverse" type="submit">Sign in</button>
-  
-<% end %>
-<%#= render "devise/shared/links" %>
-</div>
-
 <script type="text/javascript">
   $(document).ready(function() {
-    var all_ids = '#user_email, #user_password';
+    $('.reset-btn').click(function() { $('#new_user')[0].reset() })
+    var all_ids = '#user_email, #user_password, #user_password_confirmation';
     $('form').submit(function(e){
       
       if($('.error').length > 0){
@@ -43,12 +18,17 @@
         }
       });
 
+      if( $('#user_password').val() != $('#user_password_confirmation').val() ){
+        e.preventDefault();
+        var errorMessage = "Password doesn't match.";
+        display_error('user_password_confirmation', errorMessage);
+      }
+
     });
 
     $(all_ids).focus(function () {
       clear_errors(this.id);
     });
-    
     $(all_ids).blur(function(){
       if(get_value(this.id) == ""){
         var errorMessage = "You can't leave this empty.";

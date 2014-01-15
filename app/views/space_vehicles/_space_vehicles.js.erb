@@ -43,20 +43,20 @@
 
   });
 
-  // function of append error message to element
-  function display_error(element_id, errorMessage){
-    $('#'+element_id).after('<div class="error error-'+element_id+'" >'+errorMessage+'</div>');
-  }
+  // // function of append error message to element
+  // function display_error(element_id, errorMessage){
+  //   $('#'+element_id).after('<div class="error error-'+element_id+'" >'+errorMessage+'</div>');
+  // }
 
-  // function of get value of element_id
-  function get_value(element){
-    return $('#'+element).val();
-  }
+  // // function of get value of element_id
+  // function get_value(element){
+  //   return $('#'+element).val();
+  // }
 
-  // function to remove error message div of specific element
-  function clear_errors(element_id){
-    $('.error.error-'+element_id).hide();
-  }
+  // // function to remove error message div of specific element
+  // function clear_errors(element_id){
+  //   $('.error.error-'+element_id).hide();
+  // }
 
   $(document).ready(function() {
     var all_ids = '#space_vehicle_name, #space_vehicle_engine_power, #space_vehicle_start_date, #space_vehicle_delivery_date, #space_vehicle_can_carry'
@@ -77,26 +77,39 @@
         var errorMessage = "Engine Power should be inbetweeen 0 to 90";
         display_error("space_vehicle_engine_power", errorMessage); 
       }
+      var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
+      if(vehicle_type == "satellite"){
+        $('.carry_type').html("<strong>Kilograms</strong>");
+        $('#space_vehicle_can_carry').val(get_value('space_vehicle_engine_power')/2)
+      }
     });
-
 
     $('#space_vehicle_vehicle_type').change(function(event) {
         var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
         if(vehicle_type == "satellite"){
           $('.carry_type').html("<strong>Kilograms</strong>");
+          $('#space_vehicle_can_carry').val(get_value('space_vehicle_engine_power')/2)
+          $('#space_vehicle_can_carry').attr('disabled', true);
         }
         else{
           $('.carry_type').html("<strong>People</strong>"); 
+          $('#space_vehicle_can_carry').attr('disabled', false);
+          $('#space_vehicle_can_carry').val(0)
         }
     });
 
-    $('#space_vehicle_can_carry').blur(function () {
-      var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
-      if(vehicle_type == "satellite"){
-        if(get_value(this.id) > (get_value('space_vehicle_engine_power')/2)){
-          var errorMessage = "A satellite can only carry a number of kilograms equal to half its engine’s power rating.";
-          display_error(this.id, errorMessage); 
-        }
+    $('#space_vehicle_start_date').blur(function () {
+      start_date = new Date(get_value('space_vehicle_start_date'));
+      if(start_date != "Invalid Date"){
+        $('#space_vehicle_delivery_date').datepicker({
+          startDate: start_date,
+          todayHighlight: true,
+          format: 'yyyy-mm-dd'
+        });
+        $('#space_vehicle_delivery_date').attr('disabled', false);
+      }
+      else{
+        $('#space_vehicle_delivery_date').attr('disabled', true);
       }
     });
 
@@ -116,11 +129,12 @@
       }
     });
 
-    $('[data-behaviour~=datepicker]').datepicker({
-      todayHighlight: true
+    $('#space_vehicle_start_date').datepicker({
+      todayHighlight: true,
+      format: 'yyyy-mm-dd'
     });
 
+    $('.reset-btn').click(function() { $('#new_space_vehicle')[0].reset() })
   });
-
 
 </script>
