@@ -96,6 +96,7 @@
         var vehicle_type = $('#space_vehicle_vehicle_type option:selected').val();
         if(vehicle_type == "satellite"){
           $('.carry_type').html("<strong>Kilograms</strong>");
+          $('#space_vehicle_can_carry').attr('readonly', true);
         }
       });
     </script>
