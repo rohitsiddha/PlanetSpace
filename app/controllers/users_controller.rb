@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def change_admin
     authorize! :manage, current_user
-    user = User.find_by_id(params[:users][:id])
+    user = User.find_by_id(params[:id])
     user.update_attributes(:role => "admin")
     current_user.update_attributes(:role => "user")
     respond_to do |format|
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   def delete_user
     authorize! :destroy, current_user
-    @user = User.find_by_id(params[:users][:id])
+    @user = User.find_by_id(params[:id])
 
     @user.destroy
 

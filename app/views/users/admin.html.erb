@@ -1,38 +1,26 @@
 <% user_list = User.all 
    user_list.delete(current_user)
 %>
-<div class="border-form-div">
-  <h2>Admin Panel</h2>
-  <br/>
+<div class="well">
+  <h3>Admin Panel</h3>
   <div class="well">
-    <center><strong>Change Admin</strong></center>
-    <br/><br/>
-    <%= form_tag '/users/change_admin', :method => :post, :class=>"form-horizontal" do %> 
-      <div class="form-group">
-        <label class="col-lg-3 control-label" for="email_addresses">Select user</label>
-        <div class="col-lg-8">   
-          <%= collection_select(:users, :id, user_list, :id, :email, {}, {:class => "form-control" } ) %>
-          <br/>
-          <%= submit_tag "Make admin", :class =>"btn btn-primary" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+    <table class="table table-striped">
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th></th>
+        <th></th>
+      </tr>
 
-  <div class="well">
-    <center><strong>Delete User</strong></center>
-    <br/><br/>
-    <%= form_tag '/users/delete_user', :method => :delete, :class=>"form-horizontal" do %> 
-      <div class="form-group">
-        <label class="col-lg-3 control-label" for="email_addresses">Select user</label>
-        <div class="col-lg-8">
-          <%= collection_select(:users, :id, user_list, :id, :email, {}, {:class => "form-control" } ) %>
-          <br/>
-          <%= submit_tag "Delete", :class =>"btn btn-danger" %>
-        </div>
-      </div>
+    <% user_list.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td><%= link_to 'Make admin', "/users/change_admin?id=#{user.id}", :class => 'btn btn-success btn-xs', method: :post, data: { confirm: 'Are you sure?' } %></td> 
+        <td><%= link_to 'Destroy', "/users/delete_user?id=#{user.id}", :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
-
-  </div>
+    </table>
+  </div> 
   <%= link_to 'Back', space_vehicles_path, :class=> 'btn btn-default btn-sm'%>
 </div>
