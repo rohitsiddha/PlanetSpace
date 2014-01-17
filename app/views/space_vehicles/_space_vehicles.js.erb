@@ -119,7 +119,9 @@
       format: 'yyyy-mm-dd'
     });
 
-    $('.reset-btn').click(function() { $('#new_space_vehicle')[0].reset() })
+    $('.reset-btn').click(function() { $('#new_space_vehicle')[0].reset();
+      $('.error').remove();
+     });
   });
 
 </script>

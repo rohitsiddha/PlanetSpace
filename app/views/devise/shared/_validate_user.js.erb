@@ -1,6 +1,8 @@
 <script type="text/javascript">
   $(document).ready(function() {
-    $('.reset-btn').click(function() { $('#new_user')[0].reset() })
+    $('.reset-btn').click(function() { $('#new_user')[0].reset() 
+      $('.error').remove();
+    });
     var all_ids = '#user_email, #user_password, #user_password_confirmation';
     
     $(all_ids).focus(function () {
