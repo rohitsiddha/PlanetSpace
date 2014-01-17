@@ -38,7 +38,9 @@
     </table>
   </div> <br/>
   <%= link_to 'New Space vehicle', new_space_vehicle_path, :class => 'btn btn-success btn-md' %>
-  <%= link_to "Share", "#shareModal", :'data-toggle' => "modal", :id => "share_vehicle", :class => 'btn btn-success btn-md' %>
+  <% unless current_user.space_vehicles.blank? %> 
+    <%= link_to "Share", "#shareModal", :'data-toggle' => "modal", :id => "share_vehicle", :class => 'btn btn-success btn-md' %> 
+  <% end %>
 </div>
 
 

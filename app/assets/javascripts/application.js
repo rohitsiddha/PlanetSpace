@@ -18,6 +18,7 @@
 
 
 // function of append error message to element
+var requiredErrorMessage = "You can't leave this empty.";
 function display_error(element_id, errorMessage){
   $('#'+element_id).after('<div class="error error-'+element_id+'" >'+errorMessage+'</div>');
 }

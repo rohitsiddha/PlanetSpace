@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   has_many :space_vehicles, :dependent => :destroy
 
   #this is for vehicles which this user has shared  
-  has_many :shared_vehicles, :dependent => :destroy
+  has_many :shared_vehicles
 
   #this is for vehicles which the user has been shared by other users  
-  has_many :being_shared_vehicles, :class_name => "SharedVehicle", :foreign_key => "shared_user_id", :dependent => :destroy
+  has_many :being_shared_vehicles, :class_name => "SharedVehicle", :foreign_key => "shared_user_id"
 
   has_many :shared_vehicles_by_others, :through => :being_shared_vehicles, :source => :space_vehicle
 

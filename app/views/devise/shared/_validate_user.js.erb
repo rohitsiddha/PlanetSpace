@@ -2,39 +2,47 @@
   $(document).ready(function() {
     $('.reset-btn').click(function() { $('#new_user')[0].reset() })
     var all_ids = '#user_email, #user_password, #user_password_confirmation';
-    $('form').submit(function(e){
-      
-      if($('.error').length > 0){
-        e.preventDefault();
-        $("html, body").animate({ scrollTop: 0 }, 1000);
-      }
-      $('.error').remove();
-
-      $(all_ids).each(function () {
-        if(get_value(this.id) == ""){
-          e.preventDefault();
-          var errorMessage = "You can't leave this empty.";
-          display_error(this.id, errorMessage);
-        }
-      });
-
-      if( $('#user_password').val() != $('#user_password_confirmation').val() ){
-        e.preventDefault();
-        var errorMessage = "Password doesn't match.";
-        display_error('user_password_confirmation', errorMessage);
-      }
-
-    });
-
+    
     $(all_ids).focus(function () {
       clear_errors(this.id);
     });
+
     $(all_ids).blur(function(){
       if(get_value(this.id) == ""){
-        var errorMessage = "You can't leave this empty.";
-        display_error(this.id, errorMessage);
+        display_error(this.id, requiredErrorMessage);
       }
     });
+
+    $('#user_password_confirmation').blur(function(){
+      if( $('#user_password').val() != $('#user_password_confirmation').val() ){
+        var errorMessage = "Password doesn't match.";
+        display_error('user_password_confirmation', errorMessage);
+      }
+    });
+
+  });
+
+  $('form').submit(function(e){
+    
+    $('.error').remove();
+    
+    if($('.error').length > 0){
+      e.preventDefault();
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    }
+
+    $(all_ids).each(function () {
+      if(get_value(this.id) == ""){
+        e.preventDefault();
+        display_error(this.id, requiredErrorMessage);
+      }
+    });
+
+    if( $('#user_password').val() != $('#user_password_confirmation').val() ){
+      e.preventDefault();
+      var errorMessage = "Password doesn't match.";
+      display_error('user_password_confirmation', errorMessage);
+    }
 
   });
 </script>

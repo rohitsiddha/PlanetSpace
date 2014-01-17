@@ -29,11 +29,12 @@
     var all_ids = '#user_email, #user_password';
     $('form').submit(function(e){
       
+      $('.error').remove();
+      
       if($('.error').length > 0){
         e.preventDefault();
         $("html, body").animate({ scrollTop: 0 }, 1000);
       }
-      $('.error').remove();
 
       $(all_ids).each(function () {
         if(get_value(this.id) == ""){

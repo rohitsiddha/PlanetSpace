@@ -7,17 +7,18 @@
     var delivery_date = new Date($('#space_vehicle_delivery_date').val());
     var can_carry = $('#space_vehicle_can_carry').val();
     var all_ids = '#space_vehicle_name, #space_vehicle_engine_power, #space_vehicle_start_date, #space_vehicle_delivery_date, #space_vehicle_can_carry'
+
+    $('.error').remove();
+    
     if($('.error').length > 0){
       e.preventDefault();
       $("html, body").animate({ scrollTop: 0 }, 1000);
     }
-    $('.error').remove();
 
     $(all_ids).each(function () {
       if(get_value(this.id) == ""){
         e.preventDefault();
-        var errorMessage = "You can't leave this empty.";
-        display_error(this.id, errorMessage);
+        display_error(this.id, requiredErrorMessage);
       }
     });
 
@@ -43,21 +44,6 @@
 
   });
 
-  // // function of append error message to element
-  // function display_error(element_id, errorMessage){
-  //   $('#'+element_id).after('<div class="error error-'+element_id+'" >'+errorMessage+'</div>');
-  // }
-
-  // // function of get value of element_id
-  // function get_value(element){
-  //   return $('#'+element).val();
-  // }
-
-  // // function to remove error message div of specific element
-  // function clear_errors(element_id){
-  //   $('.error.error-'+element_id).hide();
-  // }
-
   $(document).ready(function() {
     var all_ids = '#space_vehicle_name, #space_vehicle_engine_power, #space_vehicle_start_date, #space_vehicle_delivery_date, #space_vehicle_can_carry'
 
@@ -67,8 +53,7 @@
 
     $(all_ids).blur(function () {
       if(get_value(this.id) == ""){
-        var errorMessage = "You can't leave this empty.";
-        display_error(this.id, errorMessage);
+        display_error(this.id, requiredErrorMessage);
       }
     });
 
@@ -89,11 +74,11 @@
         if(vehicle_type == "satellite"){
           $('.carry_type').html("<strong>Kilograms</strong>");
           $('#space_vehicle_can_carry').val(get_value('space_vehicle_engine_power')/2)
-          $('#space_vehicle_can_carry').attr('disabled', true);
+          $('#space_vehicle_can_carry').attr('readonly', true);
         }
         else{
           $('.carry_type').html("<strong>People</strong>"); 
-          $('#space_vehicle_can_carry').attr('disabled', false);
+          $('#space_vehicle_can_carry').attr('readonly', false);
           $('#space_vehicle_can_carry').val(0)
         }
     });
