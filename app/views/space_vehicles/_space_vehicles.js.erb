@@ -45,7 +45,7 @@
   });
 
   $(document).ready(function() {
-    var all_ids = '#space_vehicle_name, #space_vehicle_engine_power, #space_vehicle_start_date, #space_vehicle_delivery_date, #space_vehicle_can_carry'
+    var all_ids = '#space_vehicle_name, #space_vehicle_engine_power,  #space_vehicle_can_carry'
 
     $(all_ids).focus(function () {
       clear_errors(this.id);
@@ -102,6 +102,7 @@
       start_date = new Date(get_value('space_vehicle_start_date'));
       delivery_date = new Date(get_value('space_vehicle_delivery_date'));
       if(start_date > delivery_date){
+        clear_errors('space_vehicle_delivery_date');
         var errorMessage = "Delivery date should be greater than Start date";
         display_error("space_vehicle_delivery_date", errorMessage); 
       }
