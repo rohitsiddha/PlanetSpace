@@ -13,11 +13,11 @@
       </tr>
 
     <% user_list.each do |user| %>
-      <tr>
+      <tr id="user_id_<%=user.id%>">
         <td><%= user.email %></td>
         <td><%= user.role %></td>
         <td><%= link_to 'Make admin', "/users/change_admin?id=#{user.id}", :class => 'btn btn-success btn-xs', method: :post, data: { confirm: 'Are you sure?' } %></td> 
-        <td><%= link_to 'Destroy', "/users/delete_user?id=#{user.id}", :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', "/users/delete_user?id=#{user.id}", :remote => true, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </table>

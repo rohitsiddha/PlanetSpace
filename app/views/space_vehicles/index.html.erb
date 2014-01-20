@@ -18,7 +18,7 @@
       </tr>
 
     <% @space_vehicles.each do |space_vehicle| %>
-      <tr>
+      <tr id="vehicle_<%=space_vehicle.id%>">
         <td><%= space_vehicle.name %></td>
         <td><%= space_vehicle.engine_power %></td>
         <td><%= space_vehicle.fuel_type %></td>
@@ -31,7 +31,7 @@
         <td><%= link_to 'Shared With', "/services/space_vehicle_shared_with.json?id=#{space_vehicle.id}", :class => 'btn btn-success btn-xs' %></td> 
         <td><%= link_to 'Edit', edit_space_vehicle_path(space_vehicle), :class => 'btn btn-primary btn-xs' %></td>
         <% if space_vehicle.delivery_date < Date.today  %>
-          <td><%= link_to 'Destroy', space_vehicle, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', space_vehicle, :remote => true, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>
@@ -65,7 +65,7 @@
         </tr>
 
       <% @being_shared_vehicles.each do |space_vehicle| %>
-        <tr>
+        <tr id="vehicle_<%=space_vehicle.id%>">
           <td><%= space_vehicle.name %></td>
           <td><%= space_vehicle.engine_power %></td>
           <td><%= space_vehicle.fuel_type %></td>
@@ -77,7 +77,7 @@
           <!-- <td><%#= link_to 'Show', space_vehicle, :class => 'btn btn-primary btn-xs' %></td> -->
           <td><%= link_to 'Edit', edit_space_vehicle_path(space_vehicle), :class => 'btn btn-primary btn-xs' %></td>
           <% if space_vehicle.delivery_date < Date.today  %>
-            <td><%= link_to 'Destroy', space_vehicle, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Destroy', space_vehicle, :remote => true, :class => 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
       <% end %>

@@ -47,13 +47,13 @@ class UsersController < ApplicationController
 
   def delete_user
     authorize! :destroy, current_user
+    @user_id = params[:id]
     @user = User.find_by_id(params[:id])
-
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to "/users/admin", notice: 'User deleted successfully.' } 
-      format.json { head :no_content }
+      #format.html { redirect_to "/users/admin", notice: 'User deleted successfully.' } 
+      format.js
     end
   end
 

@@ -93,21 +93,19 @@ class SpaceVehiclesController < ApplicationController
   # DELETE /space_vehicles/1
   # DELETE /space_vehicles/1.json
   def destroy
-    #@space_vehicle = SpaceVehicle.find(params[:id])
+    @space_vehicle_id = params[:id]
     @space_vehicle = current_user.space_vehicles.find_by_id(params[:id])
     vehicle = SpaceVehicle.find_by_id(params[:id])  
     @space_vehicle ||= vehicle if current_user.has_share_access?(vehicle)  
-
     @space_vehicle.destroy
 
     respond_to do |format|
-      format.html { redirect_to space_vehicles_url }
-      format.json { head :no_content }
+      # format.html { redirect_to space_vehicles_url }
+      format.js
     end
   end
 
   def share
-    puts params
     #separate the email with the comma
     #email_addresses = params[:email_addresses].split(",")
     #email_addresses.each do |email|
