@@ -11,6 +11,7 @@ gem 'devise'
 gem 'cancan'
 gem 'switch_user'
 gem 'bootstrap-datepicker-rails'
+gem 'breadcrumbs_on_rails'
 
 group :development do
   gem 'sqlite3'
